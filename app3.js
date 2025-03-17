@@ -21,7 +21,7 @@ const mostrarCola = () => {
 }
 
 while (true) {
-    let opcion = prompt("Escoja una opcion:\n1. Adicionar cliente\n2. Atender cliente\n3. Ver cola\n4. Sair")
+    let opcion = prompt("Escoja una opcion:\n1. Adicionar cliente\n2. Atender cliente\n3. Ver cola\n4. Salir")
     if (opcion === "4") {
         alert("Saliendo...")
         break
