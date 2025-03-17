@@ -1,55 +1,44 @@
-let productos = ["Agua", "Galletas", "Chocolatina", "Papas", "Jugo"]
-let cantidades = [3, 5, 2, 4, 1]
+let nombreProducto = ["Papas", "Cocacola", "Chicles", "Chocolates", "Galletas"]
+let cantidadProducto = [1, 3, 6, 8, 10]
 
-function mostrarInventario() {
-    let inventario = "Inventario actual:\n"
-    for (let i = 0; i < productos.length; i++) {
-        inventario += `${i + 1}. ${productos[i]} - Cantidad: ${cantidades[i]}\n`
+const mostrarInventario = () => {
+    let productos = "Productos\n"
+    for (let i = 0; i < nombreProducto.length; i++) {
+        productos += `${i + 1}. ${nombreProducto[i]}: ${cantidadProducto[i]}\n`
     }
-    alert(inventario)
+    alert(productos)
 }
-function comprarProducto() {
-    let codigo = parseInt(prompt("Introduce el código numérico del producto que deseas comprar (1-5):")) - 1
-
-    if (codigo >= 0 && codigo < productos.length) {
-        if (cantidades[codigo] > 0) {
-            alert(`Has seleccionado ${productos[codigo]}. Procesando tu pago de $1...`)
-            cantidades[codigo]--
-            alert(`¡Gracias por tu compra! Has recibido ${productos[codigo]}.`)
-        } else {
-            alert(`Lo sentimos, ${productos[codigo]} está agotado.`)
-            sugerirProducto()
-        }
-    } else {
-        alert("Código de producto no válido. Por favor, intenta de nuevo.")
+const comprarProducto = () => {
+    let producto = parseInt(prompt("Ingresa el número del producto que deseas comprar:"))
+    if (producto < 1 || producto > 5) {
+        alert("Producto no válido.")
+    }else if(cantidadProducto[producto-1] == 0){
+        
+        alert(`Este producto esta agotado`)
+        sugerirProducto()
+    }else {
+        cantidadProducto[producto - 1]--
+        alert(`Se ha comprado ${nombreProducto[producto - 1]}.`)
     }
 }
 function sugerirProducto() {
-    for (let i = 0; i < cantidades.length; i++) {
-        if (cantidades[i] > 0) {
-            alert(`Te sugerimos comprar ${productos[i]}.`)
+    for (let i = 0; i < cantidadProducto.length; i++) {
+        if (cantidadProducto[i] > 0) {
+            alert(`Te sugerimos comprar ${nombreProducto[i]}.`)
             return
         }
     }
-    alert("Lo sentimos, todos los productos están agotados.")
 }
-function menuMaquinaExpendedora() {
-    let opcion
-    do {
-        opcion = prompt("Opciones:\n1. Mostrar inventario\n2. Comprar producto\n3. Salir\nElige una opción:")
-        switch (opcion) {
-            case "1":
-                mostrarInventario()
-                break
-            case "2":
-                comprarProducto()
-                break
-            case "3":
-                alert("Gracias por usar la máquina expendedora. ¡Hasta pronto!")
-                break
-            default:
-                alert("Opción no válida. Por favor, intenta de nuevo.")
-        }
-    } while (opcion !== "3")
+while (true) {
+    let opcion = prompt("Elige una opción:\n1. Ver inventario\n2. Agregar producto\n3. Salir")
+    if (opcion === "1") {
+        mostrarInventario()
+    } else if (opcion === "2") {
+        comprarProducto()
+    } else if (opcion === "3") {
+        alert("Saliendo...")
+        break
+    } else {
+        alert("Opción no válida.")
+    }
 }
-menuMaquinaExpendedora()

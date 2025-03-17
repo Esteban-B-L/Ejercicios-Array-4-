@@ -1,54 +1,43 @@
-let cola = []
-const capacidadMaxima = 7
-
-function agregarCliente() {
-    if (cola.length < capacidadMaxima) {
-        let cliente = prompt("Ingresa el nombre del cliente para agregar a la cola:")
-        if (cliente) {
-            cola.push(cliente)
-            alert(`${cliente} ha sido agregado a la cola.`)
-        }
-    } else {
-        alert("La cola está llena. No se pueden agregar más clientes.")
+const colaClientes = []
+let añadirCliente = () => {
+    let cliente = prompt("Nombre del cliente:")
+    colaClientes.push(cliente)
+    if (colaClientes.length > 7) {
+        colaClientes.pop()
+        alert("Cola llena")
+    }else if(cliente == ""){
+        alert("Nombre no valido")
+        colaClientes.pop()
+    }else{
+        alert(`Cliente añadido: ${cliente}`)
     }
 }
-function atenderCliente() {
-    if (cola.length > 0) {
-        let clienteAtendido = cola.shift()
-        alert(`${clienteAtendido} está siendo atendido.`)
-    } else {
-        alert("La cola está vacía, no hay clientes por atender.")
+const mostrarCola = () => {
+    let clientes = "Clientes en cola:\n"
+    for (let i = 0; i < colaClientes.length; i++) {
+        clientes += `${i + 1}. ${colaClientes[i]}\n`
     }
-}
-function mostrarCola() {
-    if (cola.length > 0) {
-        alert(`Clientes en la cola: ${cola.join(", ")}`)
-    } else {
-        alert("La cola está vacía.")
-    }
+    alert(clientes)
 }
 
-function menuSupermercado() {
-    let opcion
-    do {
-        opcion = prompt("Opciones:\n1. Agregar cliente\n2. Atender cliente\n3. Mostrar cola\n4. Salir\nElige una opción:")
-        switch (opcion) {
-            case "1":
-                agregarCliente()
-                break
-            case "2":
-                atenderCliente()
-                break
-            case "3":
-                mostrarCola()
-                break
-            case "4":
-                alert("Gracias por usar el sistema de cola. ¡Hasta luego!")
-                break
-            default:
-                alert("Opción no válida. Por favor, intenta de nuevo.")
-        }
-    } while (opcion !== "4")
+while (true) {
+    let opcion = prompt("Escoja una opcion:\n1. Adicionar cliente\n2. Atender cliente\n3. Ver cola\n4. Sair")
+    if (opcion === "4") {
+        alert("Saliendo...")
+        break
+    }
+    switch (opcion) {
+        case "1":
+            añadirCliente()
+            break
+        case "2":
+            let clienteAtendido = colaClientes.shift()
+            alert(`Cliente atendido: ${clienteAtendido}`)
+            break
+        case "3":
+            mostrarCola()
+            break
+        default:
+            alert("Opción inválida.")
+    }
 }
-
-menuSupermercado()
